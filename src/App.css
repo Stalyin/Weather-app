@@ -188,21 +188,20 @@ body {
   font-weight: 600;
 }
 
-/* En tu archivo CSS */
 .convert-btn {
-  background-color: #007bff; /* Color de fondo */
-  color: #ffffff; /* Color del texto */
-  border: none; /* Quita el borde */
+  background-color: #007bff;
+  color: #ffffff;
+  border: none;
   height: 30px;
-  padding: 5px; /* Ajusta el padding */
-  border-radius: 30px; /* Agrega bordes redondeados */
+  padding: 5px;
+  border-radius: 30px;
   cursor: pointer;
   white-space: nowrap;
   position: relative;
   margin-top: 3rem;
   margin-right: -22rem;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  box-shadow: 0 0 5px rgb(255, 255, 253); /* Cambia el cursor al pasar sobre el botón */
+  box-shadow: 0 0 5px rgb(255, 255, 253);
 }
 
 @keyframes moverImagen {
