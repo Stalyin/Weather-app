@@ -19,7 +19,7 @@ const Weather = ({ weatherData }) => {
     switch (weatherDescription) {
       case "clear sky":
       case "hottest":
-        return "../image/calor.gif";
+        return "calor.gif";
       case "light rain":
         return "../image/lluvia.gif";
       case "few clouds":
