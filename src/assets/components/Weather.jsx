@@ -19,23 +19,23 @@ const Weather = ({ weatherData }) => {
     switch (weatherDescription) {
       case "clear sky":
       case "hottest":
-        return "/calor.gif";
+        return "/img/calor.gif";
       case "light rain":
-        return "/lluvia.gif";
+        return ".img/lluvia.gif";
       case "few clouds":
       case "scattered clouds":
       case "broken clouds":
       case "overcast clouds":
-        return "/nublado.gif";
+        return "/img/nublado.gif";
       case "shower rain":
       case "rain":
-        return "/lluvia.gif";
+        return "/img/lluvia.gif";
       case "thunderstorm":
         return "truenos.gif";
       case "coldest":
-        return "/a873dcd8c2eae1b8197cfbd4dc5f131c_w200.gif";
+        return "/img/a873dcd8c2eae1b8197cfbd4dc5f131c_w200.gif";
       default:
-        return "/despejado.gif";
+        return "/img/despejado.gif";
     }
   };
 

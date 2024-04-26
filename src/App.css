@@ -12,7 +12,7 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background-image: url("/chan-hoi-uj-w-v7OFT4-unsplash.jpg");
+  background-image: url("/image/chan-hoi-uj-w-v7OFT4-unsplash.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   overflow: hidden;
@@ -214,23 +214,6 @@ body {
   }
 }
 
-/* Estilos personalizados para el mensaje de permiso de ubicación */
-.location-permission-message {
-  font-size: 16px;
-  color: #333;
-  background-color: #fff;
-  border: 2px solid #007bff;
-  padding: 10px;
-  border-radius: 5px;
-  max-width: 300px;
-  margin: 0 auto;
-}
-
-/* Estilos para cuando el mensaje no está visible */
-.location-permission-message.hidden {
-  display: none;
-}
-
 /* Media queries para dispositivos móviles */
 @media screen and (width <= 767px) {
   body {
@@ -412,7 +395,7 @@ body {
 
   .content {
     display: flex;
-    flex-wrap: wrap; /* Permite que los elementos se envuelvan en varias líneas */
+    flex-wrap: wrap;
     gap: 0.5rem;
     width: 60%;
     font-size: 12px;
@@ -465,7 +448,7 @@ body {
 
   .content {
     display: flex;
-    flex-wrap: wrap; /* Permite que los elementos se envuelvan en varias líneas */
+    flex-wrap: wrap;
     gap: 0.5rem;
     width: 60%;
     font-size: 12px;
