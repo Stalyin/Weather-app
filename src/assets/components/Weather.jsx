@@ -9,35 +9,33 @@ import {
 } from "ionicons/icons";
 
 const Weather = ({ weatherData }) => {
-  const [isCelsius, setIsCelsius] = useState(true); // Estado para controlar si se muestra en Celsius o Fahrenheit
+  const [isCelsius, setIsCelsius] = useState(true);
 
-  // Función para convertir de Celsius a Fahrenheit
   const convertToFahrenheit = (celsius) => {
     return (celsius * 9) / 5 + 32;
   };
 
-  // Función para obtener el nombre del archivo GIF según la descripción del clima
   const getWeatherGif = (weatherDescription) => {
     switch (weatherDescription) {
       case "clear sky":
       case "hottest":
-        return "calor.gif";
+        return "/calor.gif";
       case "light rain":
-        return "lluvia.gif";
+        return "/lluvia.gif";
       case "few clouds":
       case "scattered clouds":
       case "broken clouds":
       case "overcast clouds":
-        return "nublado.gif";
+        return "/nublado.gif";
       case "shower rain":
       case "rain":
-        return "lluvia.gif";
+        return "/lluvia.gif";
       case "thunderstorm":
         return "truenos.gif";
       case "coldest":
-        return "a873dcd8c2eae1b8197cfbd4dc5f131c_w200.gif";
+        return "/a873dcd8c2eae1b8197cfbd4dc5f131c_w200.gif";
       default:
-        return "despejado.gif";
+        return "/despejado.gif";
     }
   };
 
