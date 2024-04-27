@@ -17,6 +17,7 @@ const Weather = ({ weatherData }) => {
 
   const getWeatherGif = (weatherDescription) => {
     switch (weatherDescription) {
+      case "hot":
       case "hottest":
         return "../image/calor.gif";
 
