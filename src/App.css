@@ -214,6 +214,12 @@ body {
 }
 
 /* Media queries para dispositivos móviles */
+
+@media screen and (width <= 1024px) {
+  .text-md {
+    margin-top: 4rem;
+  }
+}
 @media screen and (width <= 767px) {
   body {
     overflow: hidden;
@@ -233,6 +239,7 @@ body {
     width: 40%;
     flex-direction: column;
     text-align: center;
+    height: 12.4rem;
   }
 
   .gif-container {
@@ -250,12 +257,15 @@ body {
 
   .text-md {
     margin-left: 1rem;
+    margin-top: 4.2rem;
   }
 
   .relative-img img {
-    width: 70%;
+    position: absolute;
+    width: 20%;
     height: auto;
-    margin-top: 1rem;
+    margin-left: -2rem;
+    margin-top: -3rem;
   }
 
   .content {
@@ -270,41 +280,43 @@ body {
   }
 }
 
-@media screen and (width <= 400px) {
+@media screen and (width <= 767px) {
   .navbar-form {
     position: relative;
     width: 350px;
-    height: 650px;
+    height: 750px;
   }
   .container {
     width: 80%;
     text-align: start;
+    height: 8rem;
   }
 
   .text-md {
-    margin-left: 10rem;
+    margin-left: -0.1rem;
     position: relative;
-    margin-top: -3.5rem;
+    margin-top: -0.5rem;
   }
 
   .gif-container {
     width: 80%;
     margin-left: 2rem;
-    height: 8.5rem;
+    height: 12rem;
     margin-top: -1.4rem;
   }
 
   .gif {
     width: 100%;
-    height: 7rem;
+    height: 10.7rem;
   }
 
   .relative-img img {
     position: absolute;
-    display: block;
-    width: 50px;
-    margin-top: -14.5rem;
-    margin-left: -2rem;
+    height: auto;
+    width: 50%;
+    margin-top: -9rem;
+    margin-left: 6rem;
+    animation: none;
   }
 
   .content {
@@ -331,133 +343,5 @@ body {
   .info-icon,
   .info-icon2 {
     display: none;
-  }
-}
-
-@media screen and (height <= 450px) {
-  body {
-  }
-
-  .navbar-form {
-    position: relative;
-    width: 780px;
-    height: 360px;
-  }
-
-  .navbar-form .title {
-    text-align: start;
-  }
-
-  .text-center {
-    position: relative;
-    margin-top: -4rem;
-    margin-left: 10rem;
-    width: 100%;
-  }
-
-  .form-control {
-    height: 20px;
-  }
-
-  .icons {
-    border: none;
-  }
-
-  .container {
-    height: 100px;
-    width: 30%;
-    text-align: start;
-  }
-
-  .text-md {
-    margin-left: 1rem;
-    position: relative;
-    margin-top: 0.5rem;
-    font-size: 25px;
-  }
-
-  .gif-container {
-    width: 30%;
-    margin-left: 2rem;
-    height: 8.5rem;
-    margin-top: -1.4rem;
-  }
-
-  .gif {
-    width: 100%;
-    height: 7rem;
-  }
-
-  .relative-img img {
-    display: none;
-  }
-
-  .content {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    width: 60%;
-    font-size: 12px;
-    position: relative;
-    margin-left: 20rem;
-    margin-top: -8rem;
-  }
-  .info-read {
-    width: calc(20% - 0.2rem);
-    text-align: start;
-  }
-
-  .read-info {
-    text-align: start;
-  }
-
-  .info-read2 {
-    width: 20%;
-    text-align: start;
-  }
-  .convert-btn {
-    position: absolute;
-    margin-top: 13rem;
-    margin-left: 4rem;
-  }
-}
-
-@media screen and (height <= 380px) {
-  .navbar-form {
-    position: relative;
-    width: 780px;
-    height: 360px;
-    margin-left: 22rem;
-  }
-
-  .navbar-form .title {
-    text-align: start;
-  }
-
-  .text-md {
-    margin-left: 8rem;
-    position: relative;
-    margin-top: -3rem;
-    font-size: 25px;
-  }
-
-  .relative-img img {
-    display: none;
-  }
-
-  .content {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    width: 60%;
-    font-size: 12px;
-    position: relative;
-    margin-left: 20rem;
-    margin-top: -15rem;
-  }
-  .convert-btn {
-    position: absolute;
-    margin-top: 13rem;
-    margin-left: 3rem;
   }
 }
