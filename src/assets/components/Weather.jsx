@@ -17,6 +17,7 @@ const Weather = ({ weatherData }) => {
 
   const getWeatherGif = (weatherDescription) => {
     switch (weatherDescription) {
+      case "clear sky":
       case "hot":
       case "hottest":
         return "../image/calor.gif";
@@ -25,7 +26,6 @@ const Weather = ({ weatherData }) => {
       case "scattered clouds":
       case "broken clouds":
       case "overcast clouds":
-      case "clear sky":
         return "../image/nublado.gif";
       case "light rain":
       case "moderate rain":
