@@ -9,11 +9,10 @@ import "./App.css";
 function App() {
   const [data, setData] = useState({});
   const [location, setLocation] = useState("");
-  const [userLocation, setUserLocation] = useState(null);
+  const [userLocation, setUserLocation] = useState(null); // Cambiado a null para un manejo de error más robusto
 
   const API_KEY = "f873b7a0326781a647e18a9848a6ee09";
 
-  // Obtener la ubicación del usuario al cargar la aplicación
   useEffect(() => {
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition(
@@ -24,7 +23,7 @@ function App() {
         },
         function (error) {
           console.error("Error getting geolocation:", error);
-          setUserLocation(null);
+          setUserLocation(null); // Cambiado a null en caso de error
         }
       );
     } else {
@@ -32,7 +31,6 @@ function App() {
     }
   }, []);
 
-  // Obtener datos meteorológicos basados en la ubicación del usuario
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -41,6 +39,7 @@ function App() {
           const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${API_KEY}`;
           const response = await axios.get(url);
           setData(response.data);
+          console.log(response.data);
         }
       } catch (error) {
         console.error("Error fetching weather data:", error);
@@ -50,10 +49,9 @@ function App() {
     fetchData();
   }, [userLocation, API_KEY]);
 
-  // Cambiar el fondo de acuerdo al clima
   useEffect(() => {
-    const body = document.querySelector("body");
-    if (data.weather && data.weather[0] && data.weather[0].main) {
+    if (data.weather && data.weather[0].main) {
+      const body = document.querySelector("body");
       switch (data.weather[0].main.toLowerCase()) {
         case "clear":
         case "clear sky":
@@ -83,22 +81,20 @@ function App() {
     }
   }, [data.weather]);
 
-  // Buscar la ubicación ingresada por el usuario
   const searchLocation = () => {
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=metric&appid=${API_KEY}`;
     axios.get(url).then((response) => {
       setData(response.data);
+      console.log(response.data);
     });
 
     setLocation("");
   };
 
-  // Manejar clic en el ícono de búsqueda
   const handleIconClick = () => {
     searchLocation();
   };
 
-  // Manejar la tecla Enter para la búsqueda
   const handleKeyPress = (event) => {
     if (event.key === "Enter") {
       searchLocation();
