@@ -31,15 +31,21 @@ function App() {
   }, []);
 
   useEffect(() => {
-    if (userLocation !== "DEFAULT_LOCATION") {
-      const url = `https://api.openweathermap.org/data/2.5/weather?lat=${
-        userLocation.split(",")[0]
-      }&lon=${userLocation.split(",")[1]}&units=metric&appid=${API_KEY}`;
-      axios.get(url).then((response) => {
-        setData(response.data);
-        console.log(response.data);
-      });
-    }
+    const fetchData = async () => {
+      if (userLocation !== "DEFAULT_LOCATION") {
+        const url = `https://api.openweathermap.org/data/2.5/weather?lat=${
+          userLocation.split(",")[0]
+        }&lon=${userLocation.split(",")[1]}&units=metric&appid=${API_KEY}`;
+        try {
+          const response = await axios.get(url);
+          setData(response.data);
+          console.log(response.data);
+        } catch (error) {
+          console.error("Error fetching weather data:", error);
+        }
+      }
+    };
+    fetchData();
   }, [userLocation, API_KEY]);
 
   useEffect(() => {
@@ -49,27 +55,27 @@ function App() {
       switch (data.weather[0].main.toLowerCase()) {
         case "clear":
         case "clear sky":
-          body.style.backgroundImage = "url('/public/image/fondo.jpg')";
+          body.style.backgroundImage = "url('../image/fondo.jpg')";
           break;
         case "hot":
         case "hottest":
-          body.style.backgroundImage = "url('/public/image/calido.jpg')";
+          body.style.backgroundImage = "url('../image/calido.jpg')";
           break;
         case "clouds":
-          body.style.backgroundImage = "url('/public/image/nublado.jpg')";
+          body.style.backgroundImage = "url('../image/nublado.jpg')";
           break;
         case "rain":
-          body.style.backgroundImage = "url('/public/image/noche2.jpg')";
+          body.style.backgroundImage = "url('../image/noche2.jpg')";
           break;
         case "thunderstorm":
-          body.style.backgroundImage = "url('/public/image/noche3.jpg')";
+          body.style.backgroundImage = "url('../image/noche3.jpg')";
           break;
         case "snow":
-          body.style.backgroundImage = "url('/public/image/frio.jpg')";
+          body.style.backgroundImage = "url('../image/frio.jpg')";
           break;
         default:
           body.style.backgroundImage =
-            "url('/public/image/chan-hoi-uj-w-v7OFT4-unsplash.jpg')";
+            "url('../image/chan-hoi-uj-w-v7OFT4-unsplash.jpg')";
           break;
       }
     }
