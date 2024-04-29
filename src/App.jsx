@@ -15,18 +15,23 @@ function App() {
 
   useEffect(() => {
     if ("geolocation" in navigator) {
-      navigator.geolocation.getCurrentPosition(function (position) {
-        setUserLocation(
-          `${position.coords.latitude},${position.coords.longitude}`
-        );
-      });
+      navigator.geolocation.getCurrentPosition(
+        function (position) {
+          setUserLocation(
+            `${position.coords.latitude},${position.coords.longitude}`
+          );
+        },
+        function (error) {
+          setUserLocation("DEFAULT_LOCATION");
+        }
+      );
     } else {
       console.log("Geolocation is not supported by this browser.");
     }
   }, []);
 
   useEffect(() => {
-    if (userLocation) {
+    if (userLocation !== "DEFAULT_LOCATION") {
       const url = `https://api.openweathermap.org/data/2.5/weather?lat=${
         userLocation.split(",")[0]
       }&lon=${userLocation.split(",")[1]}&units=metric&appid=${API_KEY}`;
@@ -35,23 +40,60 @@ function App() {
         console.log(response.data);
       });
     }
-  }, [userLocation]);
+  }, [userLocation, API_KEY]);
 
-  const searchLocation = (event) => {
-    if (event.key === "Enter") {
-      const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=metric&appid=${API_KEY}`;
-      axios.get(url).then((response) => {
-        setData(response.data);
-        console.log(response.data);
-      });
-
-      setLocation("");
+  useEffect(() => {
+    // Cambiar la imagen de fondo según el clima
+    if (data.weather && data.weather[0].main) {
+      const body = document.querySelector("body");
+      switch (data.weather[0].main.toLowerCase()) {
+        case "clear":
+        case "clear sky":
+          body.style.backgroundImage = "url('/public/image/fondo.jpg')";
+          break;
+        case "hot":
+        case "hottest":
+          body.style.backgroundImage = "url('/public/image/calido.jpg')";
+          break;
+        case "clouds":
+          body.style.backgroundImage = "url('/public/image/nublado.jpg')";
+          break;
+        case "rain":
+          body.style.backgroundImage = "url('/public/image/noche2.jpg')";
+          break;
+        case "thunderstorm":
+          body.style.backgroundImage = "url('/public/image/noche3.jpg')";
+          break;
+        case "snow":
+          body.style.backgroundImage = "url('/public/image/frio.jpg')";
+          break;
+        default:
+          body.style.backgroundImage =
+            "url('/public/image/chan-hoi-uj-w-v7OFT4-unsplash.jpg')";
+          break;
+      }
     }
+  }, [data.weather]);
+
+  const searchLocation = () => {
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=metric&appid=${API_KEY}`;
+    axios.get(url).then((response) => {
+      setData(response.data);
+      console.log(response.data);
+    });
+
+    setLocation("");
   };
 
-  if (!userLocation) {
-    return <div>Please allow location access to use this app.</div>;
-  }
+  const handleIconClick = () => {
+    searchLocation();
+  };
+
+  const handleKeyPress = (event) => {
+    if (event.key === "Enter") {
+      searchLocation();
+    }
+  };
 
   return (
     <div className="navbar-form">
@@ -63,12 +105,15 @@ function App() {
           placeholder="Enter location"
           value={location}
           onChange={(event) => setLocation(event.target.value)}
-          onKeyDownCapture={searchLocation}
+          onKeyPress={handleKeyPress}
         />
-
-        <IonIcon icon={search} className="icons" />
+        <IonIcon
+          icon={search}
+          className="icons"
+          onClick={handleIconClick}
+          style={{ cursor: "pointer" }}
+        />
       </div>
-
       <Weather weatherData={data} />
     </div>
   );

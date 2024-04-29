@@ -76,7 +76,6 @@ const Weather = ({ weatherData }) => {
                 </div>
               </div>
 
-              {/* Renderiza el GIF correspondiente al clima */}
               <div className="gif-container">
                 <img
                   src={`/public/${getWeatherGif(
