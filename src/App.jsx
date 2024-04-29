@@ -9,7 +9,7 @@ import "./App.css";
 function App() {
   const [data, setData] = useState({});
   const [location, setLocation] = useState("");
-  const [userLocation, setUserLocation] = useState("");
+  const [userLocation, setUserLocation] = useState(null); // Cambiado a null para un manejo de error más robusto
 
   const API_KEY = "f873b7a0326781a647e18a9848a6ee09";
 
@@ -22,7 +22,8 @@ function App() {
           );
         },
         function (error) {
-          setUserLocation("DEFAULT_LOCATION");
+          console.error("Error getting geolocation:", error);
+          setUserLocation(null); // Cambiado a null en caso de error
         }
       );
     } else {
@@ -32,24 +33,23 @@ function App() {
 
   useEffect(() => {
     const fetchData = async () => {
-      if (userLocation !== "DEFAULT_LOCATION") {
-        const url = `https://api.openweathermap.org/data/2.5/weather?lat=${
-          userLocation.split(",")[0]
-        }&lon=${userLocation.split(",")[1]}&units=metric&appid=${API_KEY}`;
-        try {
+      try {
+        if (userLocation) {
+          const [lat, lon] = userLocation.split(",");
+          const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${API_KEY}`;
           const response = await axios.get(url);
           setData(response.data);
           console.log(response.data);
-        } catch (error) {
-          console.error("Error fetching weather data:", error);
         }
+      } catch (error) {
+        console.error("Error fetching weather data:", error);
       }
     };
+
     fetchData();
   }, [userLocation, API_KEY]);
 
   useEffect(() => {
-    // Cambiar la imagen de fondo según el clima
     if (data.weather && data.weather[0].main) {
       const body = document.querySelector("body");
       switch (data.weather[0].main.toLowerCase()) {
