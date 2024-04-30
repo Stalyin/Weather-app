@@ -115,6 +115,7 @@ function App() {
           placeholder="Enter location"
           value={location}
           onChange={(event) => setLocation(event.target.value)}
+          onKeyPress={handleKeyPress}
         />
         <IonIcon
           icon={search}
