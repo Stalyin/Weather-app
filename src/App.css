@@ -386,6 +386,7 @@ body {
 
 @media screen and (width <= 400px) {
   .navbar-form {
+    margin-top: 1rem;
     width: 300px;
     height: 650px;
   }
