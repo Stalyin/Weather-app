@@ -383,3 +383,75 @@ body {
     display: none;
   }
 }
+
+@media screen and (width <= 400px) {
+  .navbar-form {
+    width: 300px;
+    height: 650px;
+  }
+
+  .container {
+    width: 80%;
+    text-align: start;
+    height: 7rem;
+    margin-top: 1rem;
+  }
+
+  .container p {
+    margin-top: -1rem;
+    margin-bottom: 1rem;
+  }
+
+  .text-md {
+    margin-left: -0.1rem;
+    position: relative;
+    margin-top: -1.2rem;
+  }
+
+  .gif-container {
+    width: 80%;
+    margin-left: 2rem;
+    height: 8rem;
+    margin-top: -0.8rem;
+  }
+
+  .gif {
+    width: 100%;
+    height: 6.5rem;
+  }
+
+  .relative-img img {
+    position: absolute;
+    height: auto;
+    width: 100px;
+    margin-top: -7rem;
+    margin-left: 8rem;
+    animation: none;
+  }
+
+  .content {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+    width: 80%;
+    font-size: 10px;
+  }
+
+  .read-info {
+    text-align: center;
+  }
+
+  .info-read2 {
+    width: 100%;
+    text-align: center;
+  }
+  .convert-btn {
+    margin-top: 0.5rem;
+    margin-right: -11rem;
+    margin-left: 0 auto;
+  }
+
+  .info-icon,
+  .info-icon2 {
+    display: none;
+  }
+}
