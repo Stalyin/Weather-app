@@ -3,27 +3,32 @@ import axios from "axios";
 import Weather from "./assets/components/Weather";
 import { IonIcon } from "@ionic/react";
 import { search } from "ionicons/icons";
+import { refresh } from "ionicons/icons";
 
 import "./App.css";
 
 function App() {
   const [data, setData] = useState({});
   const [location, setLocation] = useState("");
-  const [userLocation, setUserLocation] = useState(null); // Cambiado a null para un manejo de error más robusto
+  const [userLocation, setUserLocation] = useState(null);
+  const [loadingLocation, setLoadingLocation] = useState(false);
 
   const API_KEY = "f873b7a0326781a647e18a9848a6ee09";
 
   useEffect(() => {
     if ("geolocation" in navigator) {
+      setLoadingLocation(true);
       navigator.geolocation.getCurrentPosition(
         function (position) {
           setUserLocation(
             `${position.coords.latitude},${position.coords.longitude}`
           );
+          setLoadingLocation(false);
         },
         function (error) {
           console.error("Error getting geolocation:", error);
-          setUserLocation(null); // Cambiado a null en caso de error
+          setLoadingLocation(false);
+          setUserLocation(null);
         }
       );
     } else {
@@ -32,49 +37,48 @@ function App() {
   }, []);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        if (userLocation) {
-          const [lat, lon] = userLocation.split(",");
-          const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${API_KEY}`;
-          const response = await axios.get(url);
-          setData(response.data);
-          console.log(response.data);
-        }
-      } catch (error) {
-        console.error("Error fetching weather data:", error);
-      }
-    };
+    if (userLocation) {
+      fetchData();
+    }
+  }, [userLocation]);
 
-    fetchData();
-  }, [userLocation, API_KEY]);
+  const fetchData = async () => {
+    try {
+      const [lat, lon] = userLocation.split(",");
+      const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${API_KEY}`;
+      const response = await axios.get(url);
+      setData(response.data);
+    } catch (error) {
+      console.error("Error fetching weather data:", error);
+    }
+  };
 
   useEffect(() => {
     if (data.weather && data.weather[0].main) {
-      const body = document.querySelector("body");
+      const navbarForm = document.querySelector(".navbar-form");
       switch (data.weather[0].main.toLowerCase()) {
         case "clear":
         case "clear sky":
-          body.style.backgroundImage = "url('../image/fondo.jpg')";
+          navbarForm.style.backgroundImage = "url('../image/clear.webp')";
           break;
         case "hot":
         case "hottest":
-          body.style.backgroundImage = "url('../image/calido.jpg')";
+          navbarForm.style.backgroundImage = "url('../image/hot.webp')";
           break;
         case "clouds":
-          body.style.backgroundImage = "url('../image/nublado.jpg')";
+          navbarForm.style.backgroundImage = "url('../image/nublado.avif')";
           break;
         case "rain":
-          body.style.backgroundImage = "url('../image/noche2.jpg')";
+          navbarForm.style.backgroundImage = "url('../image/thunderstom.avif')";
           break;
         case "thunderstorm":
-          body.style.backgroundImage = "url('../image/noche3.jpg')";
+          navbarForm.style.backgroundImage = "url('../image/thunderstom.avif')";
           break;
         case "snow":
-          body.style.backgroundImage = "url('../image/frio.jpg')";
+          navbarForm.style.backgroundImage = "url('../image/frio.jpg')";
           break;
         default:
-          body.style.backgroundImage =
+          navbarForm.style.backgroundImage =
             "url('../image/chan-hoi-uj-w-v7OFT4-unsplash.jpg')";
           break;
       }
@@ -111,7 +115,6 @@ function App() {
           placeholder="Enter location"
           value={location}
           onChange={(event) => setLocation(event.target.value)}
-          onKeyPress={handleKeyPress}
         />
         <IonIcon
           icon={search}
@@ -120,6 +123,20 @@ function App() {
           style={{ cursor: "pointer" }}
         />
       </div>
+
+      {loadingLocation && (
+        <div className="Loading-intro">
+          <p className="loading-text">
+            Loading...
+            <IonIcon
+              icon={refresh}
+              className="refresh-icon"
+              onClick={fetchData}
+              style={{ cursor: "pointer" }}
+            />
+          </p>
+        </div>
+      )}
       <Weather weatherData={data} />
     </div>
   );
